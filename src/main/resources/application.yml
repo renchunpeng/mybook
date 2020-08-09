@@ -21,7 +21,7 @@ spring:
     druid:
       username: root
       password: 123456
-      url: jdbc:mysql://47.96.74.18:3306/qdm170159297_db?useUnicode=true&characterEncoding=utf8&useSSL=false
+      url: jdbc:mysql://47.96.74.18:3306/mybook?useUnicode=true&characterEncoding=utf8&useSSL=false
 
 ############################################################
 #

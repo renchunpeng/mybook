@@ -20,7 +20,7 @@ class MybookApplicationTests {
 
     @Test
     void getAllPages() {
-        String url = "https://www.biqukan.com/3_3050/";
+        String url = "https://www.biqukan.com/0_178/";
         try {
             Document doc = Jsoup.connect(url).get();
 
