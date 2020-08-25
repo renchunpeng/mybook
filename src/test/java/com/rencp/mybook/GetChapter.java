@@ -2,11 +2,12 @@ package com.rencp.mybook;
 
 import com.rencp.mybook.mapper.ChapterMapper;
 import com.rencp.mybook.pojo.Chapter;
+import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
