@@ -3,39 +3,57 @@ package com.rencp.mybook.controller;
 import com.rencp.mybook.mapper.ChapterMapper;
 import com.rencp.mybook.pojo.Book;
 import com.rencp.mybook.pojo.Chapter;
+import com.rencp.mybook.pojo.vo.ChapterVO;
 import com.rencp.mybook.service.BookService;
+import com.rencp.mybook.service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
-@RestController
+@Controller
 public class BookController {
+    @Autowired
+    private UtilService utilService;
+
     @Autowired
     private BookService bookService;
 
-    @Autowired
-    private ChapterMapper chapterMapper;
-
-    @RequestMapping("book")
-    public List<Book> query(HttpServletRequest httpServletRequest, HttpServletResponse response) {
-        return bookService.query();
+    /**
+     * 下载书籍
+     * @param bookUrl 书籍url
+     * @return
+     */
+    @RequestMapping("downloadBook")
+    @ResponseBody
+    public String query(@RequestBody String bookUrl) {
+//        bookurl = "https://www.biqukan.com/1_1680/";
+        utilService.downloadBook(bookUrl);
+        return "下载成功";
     }
 
-    @RequestMapping("getchapter/{bookid}")
-    public void query(@PathVariable String bookid,
-                            HttpServletRequest httpServletRequest,
-                            HttpServletResponse response) throws IOException {
-        Chapter chapter = new Chapter();
-        chapter.setId(1);
-        Chapter chapter1 = chapterMapper.selectOne(chapter);
-        // todo 这里应该在外面套一层布局，设定该页面的编码方式，然后response设定为相同的编码就可以应对不同浏览器不同的解码方式了
-        response.setCharacterEncoding("utf-8");
-        response.getWriter().write(chapter1.getChapterContent());
+    @RequestMapping("book")
+    public String queryBookList(Model model) {
+        List<Book> books = bookService.queryBook();
+        model.addAttribute("data", books);
+        return "book";
+    }
+
+    /**
+     * 查看章节内容
+     * @param chapterId 章节id
+     * @param model 视图
+     * @return
+     */
+    @RequestMapping("getchapter/{chapterId}")
+    public String query(@PathVariable String chapterId, Model model) {
+        ChapterVO chapterVO = bookService.getChapter(chapterId);
+        model.addAttribute("chapterVO", chapterVO);
+        return "page";
     }
 }

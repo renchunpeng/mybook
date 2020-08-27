@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>springboot-thymeleaf demo</title>
+</head>
+
+<body onload="start()">
+<p th:utext="${chapterVO.chapterContent}"></p>
+
+<a id="pre">上一章</a>
+<a id="next">下一章</a>
+
+<script th:inline="javascript">
+    function start() {
+        const object = [[${chapterVO}]];
+        document.getElementById("pre").setAttribute("href", object.preChapterId);
+        document.getElementById("next").setAttribute("href", object.nextChapterId);
+    }
+</script>
+</body>
+</html>

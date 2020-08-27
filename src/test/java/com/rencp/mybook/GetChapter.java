@@ -2,12 +2,11 @@ package com.rencp.mybook;
 
 import com.rencp.mybook.mapper.ChapterMapper;
 import com.rencp.mybook.pojo.Chapter;
-import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,6 +19,9 @@ class GetChapter {
     @Autowired
     private ChapterMapper chapterMapper;
 
+    /**
+     * 获取该书籍的所有章节内容
+     */
     @Test
     void getAllPages() {
         String url = "https://www.biqukan.com/0_178/";

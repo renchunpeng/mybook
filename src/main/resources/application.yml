@@ -7,7 +7,7 @@ server:
   port: 8088
   tomcat:
     uri-encoding: UTF-8
-  max-http-header-size: 80KB
+  max-http-header-size: 8000
 
 ############################################################
 #
@@ -20,8 +20,17 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       username: root
-      password: 123456
-      url: jdbc:mysql://47.96.74.18:3306/mybook?useUnicode=true&characterEncoding=utf8&useSSL=false
+      password: 19960427
+      url: jdbc:mysql://127.0.0.1:3306/mybook?useUnicode=true&characterEncoding=utf8&useSSL=false
+  # thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+    cache: false
 
 ############################################################
 #

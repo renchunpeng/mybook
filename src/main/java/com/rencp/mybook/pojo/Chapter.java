@@ -1,6 +1,7 @@
 package com.rencp.mybook.pojo;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -9,7 +10,14 @@ public class Chapter {
      * 章节编号
      */
     @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
+
+    /**
+     * 上一章节编号
+     */
+    @Column(name = "pre_chapter_id")
+    private Integer preChapterId;
 
     /**
      * 书籍编号
@@ -34,6 +42,14 @@ public class Chapter {
      */
     @Column(name = "chapter_content")
     private String chapterContent;
+
+    public Integer getPreChapterId() {
+        return preChapterId;
+    }
+
+    public void setPreChapterId(Integer preChapterId) {
+        this.preChapterId = preChapterId;
+    }
 
     /**
      * 获取章节编号
