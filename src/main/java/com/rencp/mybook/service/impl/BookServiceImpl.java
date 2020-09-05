@@ -4,6 +4,7 @@ import com.rencp.mybook.mapper.BookMapper;
 import com.rencp.mybook.mapper.ChapterMapper;
 import com.rencp.mybook.pojo.Book;
 import com.rencp.mybook.pojo.Chapter;
+import com.rencp.mybook.pojo.vo.BookChapterVO;
 import com.rencp.mybook.pojo.vo.ChapterVO;
 import com.rencp.mybook.service.BookService;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +26,15 @@ public class BookServiceImpl implements BookService {
     public List<Book> queryBook() {
         List<Book> books = bookMapper.selectAll();
         return books;
+    }
+
+    @Override
+    public List<BookChapterVO> getlatestchapter(int start, int end) {
+        if(start < 0) {
+            start = 0;
+        }
+        List<BookChapterVO> chapters = chapterMapper.getlatestchapter(start, end);
+        return chapters;
     }
 
     @Override

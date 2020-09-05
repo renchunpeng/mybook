@@ -1,5 +1,6 @@
 package com.rencp.mybook;
 
+import cn.hutool.http.HtmlUtil;
 import com.rencp.mybook.mapper.ChapterMapper;
 import com.rencp.mybook.pojo.Book;
 import com.rencp.mybook.pojo.Chapter;
@@ -40,5 +41,7 @@ public class RcpTest {
         chapter.setChapterContent("hahahha");
         chapterMapper.insert(chapter);
         System.out.println(chapter.getId());
+
+
     }
 }

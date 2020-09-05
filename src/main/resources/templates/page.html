@@ -1,22 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>springboot-thymeleaf demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 
-<body onload="start()">
-<p th:utext="${chapterVO.chapterContent}"></p>
+<body>
 
-<a id="pre">上一章</a>
-<a id="next">下一章</a>
+<div data-role="page" id="pageone">
+    <!--目录-->
+    <div data-role="panel" id="myPanel">
+        <div data-role="main" class="ui-content">
+            <ul data-role="listview" data-inset="true" id="ullist">
+                <!--等待动态加载-->
+<!--                <li><a data-ajax="false" th:text="章节名称" ></a></li>-->
+<!--                <li><a data-ajax="false" th:text="章节名称" ></a></li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="header">
+        <h1 th:text="${chapterVO.chapterName}"></h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+        <p id="content" th:utext="${chapterVO.chapterContent}"></p>
+    </div>
+
+    <div data-role="footer" data-position="fixed" data-fullscreen = true>
+        <div data-role="navbar">
+            <ul>
+                <li><a data-ajax="false" th:href="${chapterVO.preChapterId}">上一章</a></li>
+                <li><a href="#myPanel">目录</a></li>
+                <li><a href="/book">书架</a></li>
+                <li><a data-ajax="false" th:href="${chapterVO.nextChapterId}">下一章</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <script th:inline="javascript">
-    function start() {
-        const object = [[${chapterVO}]];
-        document.getElementById("pre").setAttribute("href", object.preChapterId);
-        document.getElementById("next").setAttribute("href", object.nextChapterId);
-    }
+
+    const object = [[${chapterVO}]];
+
+    // 绑定一个监听函数
+    $( "#myPanel" ).on( "panelopen", function( event, ui ) {
+        $('#ullist').empty();
+        var html = '';
+        $.ajax({
+            url: '/getlatestchapter/' + object.id,
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                for (var i =0; i<data.length; i++) {
+                    var o = data[i];
+                    html += '<li>'
+                        +  '<a data-ajax="false" href="/getchapter/' + o.id + '">'
+                        +  o.chapterName
+                        +  '</a>'
+                        +  '</li>';
+                }
+                $('#ullist').append(html);
+                $('#ullist').listview('refresh');
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    } );
 </script>
 </body>
 </html>

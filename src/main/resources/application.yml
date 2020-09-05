@@ -21,7 +21,7 @@ spring:
     druid:
       username: root
       password: 19960427
-      url: jdbc:mysql://127.0.0.1:3306/mybook?useUnicode=true&characterEncoding=utf8&useSSL=false
+      url: jdbc:mysql://47.96.74.18:3306/mybook?useUnicode=true&characterEncoding=utf8&useSSL=false
   # thymeleaf
   thymeleaf:
     prefix: classpath:/templates/
@@ -40,7 +40,8 @@ spring:
 mybatis:
   type-aliases-package: com.rencp.mybook.pojo          # 所有POJO类所在包路径
   configuration:
-    use-actual-param-name: true                 # 驼峰转化
+    # use-actual-param-name: true
+    map-underscore-to-camel-case: true        # 驼峰转化
   mapper-locations: classpath:mapper/*.xml      # mapper映射文件
 
 ############################################################
@@ -53,3 +54,7 @@ mapper:
   mappers: com.rencp.mybook.my.mapper.MyMapper
   not-empty: false    # 在进行数据库操作的的时候，判断表达式 username != null, 是否追加 username != ''
   identity: MYSQL
+
+logging:
+  level:
+    com.rencp.mybook.mapper: trace

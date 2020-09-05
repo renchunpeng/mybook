@@ -1,20 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body onload="start()">
 
-<p id="content">
+<div data-role="page" id="home" data-title="追书神器" >
+    <div data-role="header" data-position="fixed" >
+        <div data-role="navbar" >
+            <ul>
+                <li><a href="<%=basePath %>mobile/bookList" data-ajax="false" data-icon="home" class="ui-btn-active">我的书架</a></li>
+                <li><a href="<%=basePath %>mobile/tosearch" data-ajax="false" data-icon="search">书城</a></li>
+            </ul>
+        </div>
+    </div>
 
-</p>
+    <div data-role="content">
+        <div data-role="main" class="ui-content">
+            <ul data-role="listview" data-inset="true" data-filter = "true"
+                data-filter-placeholder = "请输入你想要搜索的书籍...">
+                <li th:each="item:${data}">
+                    <a th:text="${item.getBookName()}" th:href="'/chapter/' + ${item.getId()}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="footer">
+
+    </div>
+</div>
 
 <script th:inline="javascript">
     function start() {
         var data = [[${data}]];
-        console.log(data);
-        document.getElementById("content").textContent = data;
     }
 </script>
 </body>
