@@ -1,6 +1,7 @@
 package com.rencp.mybook.pojo;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ public class Book {
      * 书籍编号
      */
     @Id
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**

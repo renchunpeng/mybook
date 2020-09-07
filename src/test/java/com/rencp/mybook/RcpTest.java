@@ -4,6 +4,7 @@ import cn.hutool.http.HtmlUtil;
 import com.rencp.mybook.mapper.ChapterMapper;
 import com.rencp.mybook.pojo.Book;
 import com.rencp.mybook.pojo.Chapter;
+import com.rencp.mybook.service.ThirdPartyService;
 import com.rencp.mybook.service.UtilService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class RcpTest {
 
     @Autowired
     private ChapterMapper chapterMapper;
+
+    @Autowired
+    private ThirdPartyService thirdPartyService;
 
     @Test
     public void test() {
@@ -43,5 +48,10 @@ public class RcpTest {
         System.out.println(chapter.getId());
 
 
+    }
+
+    @Test
+    public void ere() throws IOException {
+        thirdPartyService.downloadFromXNCWXW("https://www.xncwxw.net/files/article/html/17/17867/");
     }
 }

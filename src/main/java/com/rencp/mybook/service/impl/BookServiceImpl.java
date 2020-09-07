@@ -7,6 +7,7 @@ import com.rencp.mybook.pojo.Chapter;
 import com.rencp.mybook.pojo.vo.BookChapterVO;
 import com.rencp.mybook.pojo.vo.ChapterVO;
 import com.rencp.mybook.service.BookService;
+import com.rencp.mybook.service.UtilService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookMapper bookMapper;
 
+    @Autowired
+    private UtilService utilService;
+
     @Override
     public List<Book> queryBook() {
         List<Book> books = bookMapper.selectAll();
@@ -35,6 +39,20 @@ public class BookServiceImpl implements BookService {
         }
         List<BookChapterVO> chapters = chapterMapper.getlatestchapter(start, end);
         return chapters;
+    }
+
+    @Override
+    public String addBook(String url) {
+        Book book = new Book();
+        book.setBookUrl(url);
+        List<Book> books = bookMapper.select(book);
+        if (null == book || books.size()<1){
+            Book bookInfo = utilService.getBookInfo(url);
+            bookMapper.insert(bookInfo);
+            return "新增成功";
+        }else {
+            return "该书籍已存在";
+        }
     }
 
     @Override

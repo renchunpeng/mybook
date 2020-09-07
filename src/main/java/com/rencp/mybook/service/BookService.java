@@ -9,6 +9,12 @@ import java.util.List;
 public interface BookService {
 
     /**
+     * 添加书籍
+     * @param url
+     */
+    String addBook(String url);
+
+    /**
      * 获取章节信息
      */
     ChapterVO getChapter(String chapterId);

@@ -1,5 +1,7 @@
 package com.rencp.mybook.service.impl;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.rencp.mybook.mapper.BookMapper;
 import com.rencp.mybook.mapper.ChapterMapper;
 import com.rencp.mybook.pojo.Book;
@@ -13,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,6 +29,12 @@ public class UtilServiceImpl implements UtilService {
 
     @Autowired
     private ChapterMapper chapterMapper;
+
+    @Autowired
+    private BookMapper bookMapper;
+
+    @Autowired
+    private UtilService utilService;
 
     @Override
     public Map<String, String> getChapterByBookUrl(String bookUrl) {
@@ -106,18 +115,54 @@ public class UtilServiceImpl implements UtilService {
     }
 
     @Override
-    public void downloadBook(String bookUrl) {
-        int preChapterId = 0;
-        Map<String, String> chapterByBookUrl = getChapterByBookUrl(bookUrl);
-        for(Map.Entry<String, String> entry : chapterByBookUrl.entrySet()) {
-            Chapter chapter = getContentByChapterUrl(entry.getValue());
-            chapter.setBookId(1);
-            chapter.setCreateTime(new Date());
-            chapter.setPreChapterId(preChapterId);
-            chapterMapper.insert(chapter);
-            logger.info("{},保存成功", entry.getKey());
-            preChapterId = chapter.getId();
+    public void downloadBook(int bookId) {
+        Book book = bookMapper.selectByPrimaryKey(bookId);
+        if(null != book && !StringUtils.isEmpty(book.getBookUrl())){
+            int preChapterId = 0;
+            Map<String, String> chapterByBookUrl = getChapterByBookUrl(book.getBookUrl());
+            for(Map.Entry<String, String> entry : chapterByBookUrl.entrySet()) {
+                Chapter chapter = getContentByChapterUrl(entry.getValue());
+                chapter.setBookId(1);
+                chapter.setCreateTime(new Date());
+                chapter.setPreChapterId(preChapterId);
+                chapterMapper.insert(chapter);
+                logger.info("{},保存成功", entry.getKey());
+                preChapterId = chapter.getId();
+            }
         }
+    }
+
+    @Override
+    public Book getBookInfo(String url) {
+        int flag = 0;
+        Book book = new Book();
+        Document doc = null;
+        while (null == doc && flag <10) {
+            try {
+                flag++;
+                doc = Jsoup.connect(url).get();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String bookName = doc.select("body > div.book > div.info > h2").text();
+        String bookImg = webUrl + doc.select("body > div.book > div.info > div.cover > img").attr("src");
+        String tempAuthor = doc.select("body > div.book > div.info > div.small > span:nth-child(1)").text();
+        String author = tempAuthor.substring(tempAuthor.indexOf("：")+1);
+        String introduction = doc.select("body > div.book > div.info > div.intro").text();
+        String tempLastUpdate = doc.select("body > div.book > div.info > div.small > span:nth-child(5)").text();
+        String lastUpdate = tempLastUpdate.substring(tempLastUpdate.indexOf("：")+1);
+
+        book.setBookName(bookName);
+        book.setBookUrl(url);
+        book.setBookImg(bookImg);
+        book.setAuthor(author);
+        book.setIntroduction(introduction);
+        book.setCreateTime(new Date());
+        DateTime parse = DateUtil.parse(lastUpdate, "yyyy-MM-dd HH:mm:ss");
+        book.setLastUpdate(parse);
+        book.setLastComparison(new Date());
+        return book;
     }
 
 }

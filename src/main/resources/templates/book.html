@@ -12,8 +12,8 @@
     <div data-role="header" data-position="fixed" >
         <div data-role="navbar" >
             <ul>
-                <li><a href="<%=basePath %>mobile/bookList" data-ajax="false" data-icon="home" class="ui-btn-active">我的书架</a></li>
-                <li><a href="<%=basePath %>mobile/tosearch" data-ajax="false" data-icon="search">书城</a></li>
+                <li><a href="/book" data-ajax="false" data-icon="home" class="ui-btn-active">我的书架</a></li>
+                <li><a href="/tosearch" data-ajax="false" data-icon="search">搜索</a></li>
             </ul>
         </div>
     </div>
@@ -29,8 +29,13 @@
         </div>
     </div>
 
-    <div data-role="footer">
-
+    <div data-role="footer" data-position="fixed" data-fullscreen = "true">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-ajax="false" href="/book" data-icon="plus">书城</a></li>
+                <li><a data-ajax="false" href="/find" data-icon="plus">发现</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 

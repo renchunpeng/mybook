@@ -1,6 +1,7 @@
 package com.rencp.mybook.controller;
 
 import cn.hutool.http.HtmlUtil;
+import com.rencp.mybook.mapper.BookMapper;
 import com.rencp.mybook.pojo.Book;
 import com.rencp.mybook.pojo.Chapter;
 import com.rencp.mybook.pojo.vo.BookChapterVO;
@@ -11,6 +12,7 @@ import com.rencp.mybook.service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,18 +29,33 @@ public class BookController {
     private ChapterService chapterService;
 
     /**
-     * 下载书籍
-     * @param bookUrl 书籍url
+     * 将书籍添加到书库
+     * @param url 被添加书籍到url地址
      * @return
      */
-    @RequestMapping("downloadBook")
+    @GetMapping("addbook")
     @ResponseBody
-    public String query(@RequestBody String bookUrl) {
-//        bookurl = "https://www.biqukan.com/1_1680/";
-        utilService.downloadBook(bookUrl);
+    public String addBook(@RequestParam String url) {
+        return bookService.addBook(url);
+    }
+
+    /**
+     * 下载书籍
+     * @param bookId 书籍id
+     * @return
+     */
+    @GetMapping("downloadBook/{bookId}")
+    @ResponseBody
+    public String query(@PathVariable int bookId) {
+        utilService.downloadBook(bookId);
         return "下载成功";
     }
 
+    /**
+     * 跳转到书籍列表
+     * @param model
+     * @return
+     */
     @RequestMapping("book")
     public String queryBookList(Model model) {
         List<Book> books = bookService.queryBook();
@@ -46,6 +63,12 @@ public class BookController {
         return "book";
     }
 
+    /**
+     * 跳转到章节列表
+     * @param bookId
+     * @param model
+     * @return
+     */
     @RequestMapping("chapter/{bookId}")
     public String queryChapterList(@PathVariable int bookId , Model model) {
         List<BookChapterVO> chapters = chapterService.queryChapterList(bookId);

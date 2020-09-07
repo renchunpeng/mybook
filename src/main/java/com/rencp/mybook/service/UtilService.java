@@ -27,5 +27,10 @@ public interface UtilService {
     /**
      * 下载书籍
      */
-    void downloadBook(String bookUrl);
+    void downloadBook(int bookId);
+
+    /**
+     * 根据书籍url获取书籍到信息
+     */
+    Book getBookInfo(String url);
 }

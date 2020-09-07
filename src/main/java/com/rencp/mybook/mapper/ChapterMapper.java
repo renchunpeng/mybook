@@ -14,7 +14,7 @@ public interface ChapterMapper extends MyMapper<Chapter> {
      * @param bookId
      * @return
      */
-    @Select("select id,chapter_name from chapter")
+    @Select("select id,chapter_name from chapter where book_id = #{bookId}")
     List<BookChapterVO> getAllChapterName(int bookId);
 
     @Select("select id,chapter_name from chapter where id between #{start} and #{end}")
