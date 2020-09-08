@@ -6,7 +6,7 @@ import com.rencp.mybook.pojo.Book;
 import com.rencp.mybook.pojo.Chapter;
 import com.rencp.mybook.service.ThirdPartyService;
 import com.rencp.mybook.service.UtilService;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
