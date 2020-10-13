@@ -37,7 +37,7 @@ class GetChapter {
                         + element.select("a").attr("href");
                 String pageTitle = element.select("a").text();
 
-                if(flag) {
+                if (flag) {
                     System.out.println(pageTitle + "开始下载");
                     getDetails(pageUrl);
                 }

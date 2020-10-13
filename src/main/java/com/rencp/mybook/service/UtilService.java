@@ -20,6 +20,7 @@ public interface UtilService {
 
     /**
      * 获取排行榜的书籍信息
+     *
      * @return
      */
     List<Book> getPaiHangBangBook();

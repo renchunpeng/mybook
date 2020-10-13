@@ -34,7 +34,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookChapterVO> getlatestchapter(int start, int end) {
-        if(start < 0) {
+        if (start < 0) {
             start = 0;
         }
         List<BookChapterVO> chapters = chapterMapper.getlatestchapter(start, end);
@@ -46,11 +46,11 @@ public class BookServiceImpl implements BookService {
         Book book = new Book();
         book.setBookUrl(url);
         List<Book> books = bookMapper.select(book);
-        if (null == book || books.size()<1){
+        if (null == book || books.size() < 1) {
             Book bookInfo = utilService.getBookInfo(url);
             bookMapper.insert(bookInfo);
             return "新增成功";
-        }else {
+        } else {
             return "该书籍已存在";
         }
     }
@@ -64,9 +64,9 @@ public class BookServiceImpl implements BookService {
         List<Chapter> chapters = chapterMapper.selectByExample(example);
         ChapterVO chapterVO = new ChapterVO();
         BeanUtils.copyProperties(chapter, chapterVO);
-        if(chapters.size() > 0){
+        if (chapters.size() > 0) {
             chapterVO.setNextChapterId(chapters.get(0).getId());
-        }else {
+        } else {
             chapterVO.setNextChapterId(0);
         }
 

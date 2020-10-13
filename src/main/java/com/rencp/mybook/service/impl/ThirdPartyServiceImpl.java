@@ -35,6 +35,7 @@ public class ThirdPartyServiceImpl implements ThirdPartyService {
 
     /**
      * 根据书籍url获取书籍信息并保存
+     *
      * @param bookurl
      * @return
      * @throws IOException
@@ -44,7 +45,7 @@ public class ThirdPartyServiceImpl implements ThirdPartyService {
         Document document = JsoupUtils.getDocument(bookurl);
         String bookName = document.select("#info > h1").text();
         String tempAuthor = document.select("#info > p:nth-child(2)").text();
-        String author = tempAuthor.substring(tempAuthor.indexOf("：")+1);
+        String author = tempAuthor.substring(tempAuthor.indexOf("：") + 1);
         String bookImg = document.select("#fmimg > img").attr("src");
         String introduction = document.select("#intro > p").text();
         book.setBookName(bookName);
@@ -60,6 +61,7 @@ public class ThirdPartyServiceImpl implements ThirdPartyService {
 
     /**
      * 根据书籍url获取所有章节内容并保存
+     *
      * @param bookUrl
      * @param bookId
      * @throws IOException

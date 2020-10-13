@@ -15,8 +15,8 @@
         <div data-role="main" class="ui-content">
             <ul data-role="listview" data-inset="true" id="ullist">
                 <!--等待动态加载-->
-<!--                <li><a data-ajax="false" th:text="章节名称" ></a></li>-->
-<!--                <li><a data-ajax="false" th:text="章节名称" ></a></li>-->
+                <!--                <li><a data-ajax="false" th:text="章节名称" ></a></li>-->
+                <!--                <li><a data-ajax="false" th:text="章节名称" ></a></li>-->
             </ul>
         </div>
     </div>
@@ -29,7 +29,7 @@
         <p id="content" th:utext="${chapterVO.chapterContent}"></p>
     </div>
 
-    <div data-role="footer" data-position="fixed" data-fullscreen = true>
+    <div data-role="footer" data-position="fixed" data-fullscreen=true>
         <div data-role="navbar">
             <ul>
                 <li><a data-ajax="false" th:href="${chapterVO.preChapterId}">上一章</a></li>
@@ -46,7 +46,7 @@
     const object = [[${chapterVO}]];
 
     // 绑定一个监听函数
-    $( "#myPanel" ).on( "panelopen", function( event, ui ) {
+    $("#myPanel").on("panelopen", function (event, ui) {
         $('#ullist').empty();
         var html = '';
         $.ajax({
@@ -54,13 +54,13 @@
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                for (var i =0; i<data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
                     var o = data[i];
                     html += '<li>'
-                        +  '<a data-ajax="false" href="/getchapter/' + o.id + '">'
-                        +  o.chapterName
-                        +  '</a>'
-                        +  '</li>';
+                        + '<a data-ajax="false" href="/getchapter/' + o.id + '">'
+                        + o.chapterName
+                        + '</a>'
+                        + '</li>';
                 }
                 $('#ullist').append(html);
                 $('#ullist').listview('refresh');
@@ -69,7 +69,7 @@
                 console.log(error)
             }
         })
-    } );
+    });
 </script>
 </body>
 </html>

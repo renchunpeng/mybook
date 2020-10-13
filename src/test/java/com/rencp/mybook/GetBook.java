@@ -30,7 +30,7 @@ public class GetBook {
         try {
             Document doc = Jsoup.connect(url).get();
 
-            Elements contents= doc.select(".wrap").get(1).select(".block");
+            Elements contents = doc.select(".wrap").get(1).select(".block");
             for (int i = 0; i < contents.size(); i++) {
                 System.out.println(contents.get(i).select("h2").text());
                 Elements ul_li = contents.get(i).select("ul li");

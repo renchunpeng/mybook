@@ -30,6 +30,7 @@ public class BookController {
 
     /**
      * 将书籍添加到书库
+     *
      * @param url 被添加书籍到url地址
      * @return
      */
@@ -41,6 +42,7 @@ public class BookController {
 
     /**
      * 下载书籍
+     *
      * @param bookId 书籍id
      * @return
      */
@@ -53,6 +55,7 @@ public class BookController {
 
     /**
      * 跳转到书籍列表
+     *
      * @param model
      * @return
      */
@@ -65,12 +68,13 @@ public class BookController {
 
     /**
      * 跳转到章节列表
+     *
      * @param bookId
      * @param model
      * @return
      */
     @RequestMapping("chapter/{bookId}")
-    public String queryChapterList(@PathVariable int bookId , Model model) {
+    public String queryChapterList(@PathVariable int bookId, Model model) {
         List<BookChapterVO> chapters = chapterService.queryChapterList(bookId);
         model.addAttribute("data", chapters);
         return "chapter";
@@ -78,8 +82,9 @@ public class BookController {
 
     /**
      * 查看章节内容
+     *
      * @param chapterId 章节id
-     * @param model 视图
+     * @param model     视图
      * @return
      */
     @RequestMapping("getchapter/{chapterId}")
@@ -93,6 +98,7 @@ public class BookController {
 
     /**
      * 获取当前章节上下十章的信息
+     *
      * @return
      */
     @GetMapping("/getlatestchapter/{chapterId}")

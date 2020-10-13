@@ -1,6 +1,6 @@
 package com.rencp.mybook.pojo.vo;
 
-public class SearchBook{
+public class SearchBook {
     //书名
     private String bookName;
 

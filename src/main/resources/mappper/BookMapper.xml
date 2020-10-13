@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rencp.mybook.mapper.BookMapper" >
-  <resultMap id="BaseResultMap" type="com.rencp.mybook.pojo.Book" >
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
-    <result column="book_url" property="bookUrl" jdbcType="VARCHAR" />
-    <result column="book_img" property="bookImg" jdbcType="VARCHAR" />
-    <result column="author" property="author" jdbcType="VARCHAR" />
-    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="last_update" property="lastUpdate" jdbcType="TIMESTAMP" />
-    <result column="last_comparison" property="lastComparison" jdbcType="TIMESTAMP" />
-  </resultMap>
+<mapper namespace="com.rencp.mybook.mapper.BookMapper">
+    <resultMap id="BaseResultMap" type="com.rencp.mybook.pojo.Book">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="book_name" property="bookName" jdbcType="VARCHAR"/>
+        <result column="book_url" property="bookUrl" jdbcType="VARCHAR"/>
+        <result column="book_img" property="bookImg" jdbcType="VARCHAR"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_update" property="lastUpdate" jdbcType="TIMESTAMP"/>
+        <result column="last_comparison" property="lastComparison" jdbcType="TIMESTAMP"/>
+    </resultMap>
 </mapper>

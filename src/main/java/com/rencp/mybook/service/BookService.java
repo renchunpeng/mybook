@@ -10,6 +10,7 @@ public interface BookService {
 
     /**
      * 添加书籍
+     *
      * @param url
      */
     String addBook(String url);

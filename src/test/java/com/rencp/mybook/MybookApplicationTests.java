@@ -32,7 +32,7 @@ class MybookApplicationTests {
 
             File file = new File(basePath + bookName);
             // 假如文件夹存在，删除之后重新创建
-            if(file.exists()) {
+            if (file.exists()) {
                 FileUtil.del(file);
             }
             FileUtil.mkdir(file);
@@ -48,7 +48,7 @@ class MybookApplicationTests {
 //                if(pageTitle.equals("第一百五十八章 收取轻灵之水")) {
 //                    flag = true;
 //                }
-                if(flag) {
+                if (flag) {
                     System.out.println(pageTitle + "开始下载");
                     getDetails(pageUrl, bookName);
                 }
@@ -77,7 +77,7 @@ class MybookApplicationTests {
         String pageName = doc.select(".content").select("h1").text();
         Elements chapters = doc.select(".page_chapter").select("a");
 
-        File file = new File(basePath + bookName +"/"+ pageName +".html");
+        File file = new File(basePath + bookName + "/" + pageName + ".html");
         file.createNewFile();
         FileUtil.appendString(content, file, "utf-8");
 

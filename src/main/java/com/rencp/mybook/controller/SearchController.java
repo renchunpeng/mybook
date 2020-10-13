@@ -26,6 +26,7 @@ public class SearchController extends BaseController {
 
     /**
      * 书籍搜索
+     *
      * @param bookname
      * @return
      */
@@ -35,7 +36,7 @@ public class SearchController extends BaseController {
         List<SearchBook> lists = new ArrayList<>();
         Document doc = null;
         try {
-            String url = SEARCH_BASEURL  + URLEncoder.encode(bookname,"GBK");
+            String url = SEARCH_BASEURL + URLEncoder.encode(bookname, "GBK");
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();

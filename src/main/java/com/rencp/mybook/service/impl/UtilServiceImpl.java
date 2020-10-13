@@ -90,14 +90,14 @@ public class UtilServiceImpl implements UtilService {
         try {
             Document doc = Jsoup.connect(url).get();
 
-            Elements contents= doc.select(".wrap").get(1).select(".block");
+            Elements contents = doc.select(".wrap").get(1).select(".block");
             for (int i = 0; i < contents.size(); i++) {
                 logger.info("榜单类型：" + contents.get(i).select("h2").text());
                 Elements ul_li = contents.get(i).select("ul li");
                 for (Element element : ul_li) {
                     String bookName = element.select("a").text();
                     String bookUrl = element.select("a").attr("href");
-                    logger.info("获取到书籍，书名为：{},地址为：{}",bookName,webUrl + bookUrl);
+                    logger.info("获取到书籍，书名为：{},地址为：{}", bookName, webUrl + bookUrl);
 
                     Book book = new Book();
                     book.setBookName(bookName);
@@ -117,10 +117,10 @@ public class UtilServiceImpl implements UtilService {
     @Override
     public void downloadBook(int bookId) {
         Book book = bookMapper.selectByPrimaryKey(bookId);
-        if(null != book && !StringUtils.isEmpty(book.getBookUrl())){
+        if (null != book && !StringUtils.isEmpty(book.getBookUrl())) {
             int preChapterId = 0;
             Map<String, String> chapterByBookUrl = getChapterByBookUrl(book.getBookUrl());
-            for(Map.Entry<String, String> entry : chapterByBookUrl.entrySet()) {
+            for (Map.Entry<String, String> entry : chapterByBookUrl.entrySet()) {
                 Chapter chapter = getContentByChapterUrl(entry.getValue());
                 chapter.setBookId(1);
                 chapter.setCreateTime(new Date());
@@ -137,7 +137,7 @@ public class UtilServiceImpl implements UtilService {
         int flag = 0;
         Book book = new Book();
         Document doc = null;
-        while (null == doc && flag <10) {
+        while (null == doc && flag < 10) {
             try {
                 flag++;
                 doc = Jsoup.connect(url).get();
@@ -148,10 +148,10 @@ public class UtilServiceImpl implements UtilService {
         String bookName = doc.select("body > div.book > div.info > h2").text();
         String bookImg = webUrl + doc.select("body > div.book > div.info > div.cover > img").attr("src");
         String tempAuthor = doc.select("body > div.book > div.info > div.small > span:nth-child(1)").text();
-        String author = tempAuthor.substring(tempAuthor.indexOf("：")+1);
+        String author = tempAuthor.substring(tempAuthor.indexOf("：") + 1);
         String introduction = doc.select("body > div.book > div.info > div.intro").text();
         String tempLastUpdate = doc.select("body > div.book > div.info > div.small > span:nth-child(5)").text();
-        String lastUpdate = tempLastUpdate.substring(tempLastUpdate.indexOf("：")+1);
+        String lastUpdate = tempLastUpdate.substring(tempLastUpdate.indexOf("：") + 1);
 
         book.setBookName(bookName);
         book.setBookUrl(url);

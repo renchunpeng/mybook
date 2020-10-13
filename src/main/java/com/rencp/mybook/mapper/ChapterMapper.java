@@ -11,6 +11,7 @@ public interface ChapterMapper extends MyMapper<Chapter> {
 
     /**
      * 获取书籍全部章节名称
+     *
      * @param bookId
      * @return
      */

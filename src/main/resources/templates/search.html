@@ -7,9 +7,14 @@
     <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <style>
         .mask {
-            position: absolute; top: 0px; filter: alpha(opacity=60); background-color: #777;
-            z-index: 1002; left: 0px;
-            opacity:0.5; -moz-opacity:0.5;
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.5;
+            -moz-opacity: 0.5;
         }
     </style>
 </head>
@@ -21,11 +26,11 @@
         <h1>小说搜索</h1>
         <a href="/book" data-ajax="false" data-role="button" class="ui-btn-left" data-icon="back">我到书架</a>
     </div>
-    <div data-role="content" >
+    <div data-role="content">
         <form action="">
             <div data-role="fieldcontain">
                 <input type="text" name="fullname" id="bookname" placeholder="请输入书名" style="display:block;">
-                <a data-role="button" id="search"  data-icon="search">搜索</a>
+                <a data-role="button" id="search" data-icon="search">搜索</a>
             </div>
         </form>
 
@@ -39,21 +44,21 @@
 </div>
 
 <script>
-    $(function(){
-        $("#search").click(function(){
+    $(function () {
+        $("#search").click(function () {
             showMask();
             const bookname = $("#bookname").val();
             $.ajax({
                 url: '/search/',
                 type: 'get',
                 dataType: 'json',
-                data : {
-                    bookname : bookname
+                data: {
+                    bookname: bookname
                 },
                 success: function (data) {
-                    if(data.length > 0){
+                    if (data.length > 0) {
                         updateresult(data);
-                    }else{
+                    } else {
                         alert("没有查到相关书籍！");
                     }
                     hideMask();
@@ -66,13 +71,13 @@
     })
 
     //根据查询结果刷新result div
-    function updateresult(data){
+    function updateresult(data) {
         var html = "";
 
         //更新查询结果的时候将以前的查询结果清空
         $('#result>ul').empty();
 
-        for(var i=0; i<data.length; i++){
+        for (var i = 0; i < data.length; i++) {
             var item = data[i];
 
             html += "<li>";
@@ -81,7 +86,7 @@
                 '<img src="' + item.bookPicUrl + '">' +
                 item.bookName +
                 '<br/>' +
-                '<span class="ban">'+ item.auth +'</span>' +
+                '<span class="ban">' + item.auth + '</span>' +
                 '<br/>' +
                 '</a>';
             html += "</li>";
@@ -91,14 +96,14 @@
     }
 
     //显示遮罩层
-    function showMask(){
-        $('#mask').css("height",$(document).height());
-        $('#mask').css("width",$(document).width());
+    function showMask() {
+        $('#mask').css("height", $(document).height());
+        $('#mask').css("width", $(document).width());
         $('#mask').show();
     }
 
     //隐藏遮罩层
-    function hideMask(){
+    function hideMask() {
         $("#mask").hide();
     }
 
@@ -108,8 +113,8 @@
             url: '/addbook',
             type: 'get',
             dataType: 'json',
-            data : {
-                url : bookUrl
+            data: {
+                url: bookUrl
             },
             success: function (data) {
                 alert(data);
