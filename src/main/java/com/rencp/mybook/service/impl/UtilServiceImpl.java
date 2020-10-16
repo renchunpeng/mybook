@@ -122,7 +122,7 @@ public class UtilServiceImpl implements UtilService {
             Map<String, String> chapterByBookUrl = getChapterByBookUrl(book.getBookUrl());
             for (Map.Entry<String, String> entry : chapterByBookUrl.entrySet()) {
                 Chapter chapter = getContentByChapterUrl(entry.getValue());
-                chapter.setBookId(1);
+                chapter.setBookId(bookId);
                 chapter.setCreateTime(new Date());
                 chapter.setPreChapterId(preChapterId);
                 chapterMapper.insert(chapter);
