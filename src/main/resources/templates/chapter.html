@@ -17,6 +17,7 @@
 
     <div data-role="content">
         <div data-role="main" class="ui-content">
+            <a data-ajax="false" class="ui-btn ui-shadow" href="/getchapter/4105">最后查看章节</a>
             <ul data-role="listview" data-inset="true">
                 <li th:each="item:${data}"><a data-ajax="false" th:text="${item.getChapterName()}"
                                               th:href="'/getchapter/' + ${item.getId()}"></a></li>

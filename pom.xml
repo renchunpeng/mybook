@@ -136,10 +136,60 @@
 
     <build>
         <plugins>
-            <!--打成可执行jar-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+
+                <configuration>
+                    <!-- 镜像名称 -->
+                    <imageName>${project.artifactId}</imageName>
+                    <!--指定标签-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <!-- 基础镜像jdk 1.8-->
+                    <baseImage>java:8</baseImage>
+                    <!-- 制作者提供本人信息 -->
+                    <maintainer>rcp@aliyun.com</maintainer>
+                    <!--切换到/ROOT目录 -->
+                    <workdir>/ROOT</workdir>
+                    <cmd>["java", "-version"]</cmd>
+                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
+
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>http://47.96.74.18:2375</dockerHost>
+
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/ROOT</targetPath>
+                            <!--用于指定需要复制的根目录，${project.build.directory}表示target目录-->
+                            <directory>${project.build.directory}</directory>
+                            <!--用于指定需要复制的文件。${project.build.finalName}.jar指的是打包后的jar包文件。-->
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+
+                </configuration>
+
+                <!--将插件绑定在某个phase执行-->
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <!--将插件绑定在package这个phase上。也就是说，
+                        用户只需执行mvn package ，就会自动执行mvn docker:build-->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--maven打包的时候跳过测试-->
