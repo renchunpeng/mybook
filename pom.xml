@@ -163,7 +163,9 @@
                     <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
 
                     <!--指定远程 docker api地址-->
-                    <dockerHost>http://47.96.74.18:2375</dockerHost>
+                    <dockerHost>https://47.96.74.18:2375</dockerHost>
+                    <!--指定证书位置，非https连接不需要-->
+                    <dockerCertPath>/Users/renchunpeng/Documents/Docker/key</dockerCertPath>
 
                     <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
                     <resources>
@@ -178,18 +180,20 @@
 
                 </configuration>
 
-                <!--将插件绑定在某个phase执行-->
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <!--将插件绑定在package这个phase上。也就是说，
-                        用户只需执行mvn package ，就会自动执行mvn docker:build-->
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <!--将插件绑定在某个phase执行.这里可以去掉，改为手动点击docker:build,这样防止每次打包都上传-->
+                <!--假如这里注释掉，那before launch哪里都maven命令也可以去掉，之后就先clean package docker:build 然后发布就行-->
+                <!--最终：可以把这里注释掉，在before launch中写package dock儿:build-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>build-image</id>-->
+<!--                        &lt;!&ndash;将插件绑定在package这个phase上。也就是说，-->
+<!--                        用户只需执行mvn package ，就会自动执行mvn docker:build&ndash;&gt;-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
 
             <!--maven打包的时候跳过测试-->

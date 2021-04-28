@@ -7,14 +7,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.util.Date;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
-class GetChapter {
+@RunWith(SpringRunner.class)
+public class GetChapter {
 
     @Autowired
     private ChapterMapper chapterMapper;
@@ -23,8 +26,8 @@ class GetChapter {
      * 获取该书籍的所有章节内容
      */
     @Test
-    void getAllPages() {
-        String url = "https://www.biqukan.com/0_178/";
+    public void getAllPages() {
+        String url = "https://www.bqkan8.com/4_4316/";
         try {
             Document doc = Jsoup.connect(url).get();
 
