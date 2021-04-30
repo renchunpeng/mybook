@@ -16,6 +16,7 @@
   <Appenders>
     <!--这个输出控制台的配置 -->
     <Console name="CONSOLE" target="SYSTEM_OUT">
+      <!--其实这行控制可以不用，控制台给什么输出什么就行，可能为了方便看报错信息吧-->
       <ThresholdFilter level="${sys:log.level.console}" onMatch="ACCEPT"
         onMismatch="DENY"/>
       <PatternLayout
@@ -145,12 +146,14 @@
       <AppenderRef ref="ROLLING_FILE_WARN"/>
       <AppenderRef ref="ROLLING_FILE_ERROR"/>
     </Root>
-    <!-- 个性化配置第三方日志系统，这里到输出等级小于Root到输出等级就不会打印该日志了 -->
-    <!-- 用来单独指定日志的形式。 -->
+    <!-- 个性化配置第三方日志系统，这里设置的等级会覆盖root的等级，比如org.mybatis设置为DEBUG就会把所有的debug信息都传入root -->
+    <!-- 用来单独指定日志的形式。可以理解为过滤一些日志信息，这样即使root设置为debug也不会打印太多无效日志 -->
+    <!-- 控制sql的打印 -->
+    <Logger name="com.rencp.mybook.mapper" level="DEBUG" />
     <!-- org.springframework 输出 WARN 及以上级别日志 -->
     <Logger name="org.springframework" level="WARN"/>
     <!-- org.mybatis 输出 DEBUG 及以上级别日志，方便调试 SQL -->
-    <Logger name="org.mybatis" level="DEBUG"/>
+    <Logger name="org.mybatis" level="INFO"/>
     <!-- org.springframework.boot 输出 INFO 及以上级别日志 -->
     <Logger name="org.springframework.boot" level="INFO"/>
     <Logger name="AccessLog" additivity="TRUE" level="INFO">
